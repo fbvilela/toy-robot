@@ -1,0 +1,15 @@
+
+
+
+Robot 
+ left 
+ right
+ move 
+ report
+ place( x, y)
+ belongs to a board
+
+
+Board
+ has dimensions
+ has one robot
