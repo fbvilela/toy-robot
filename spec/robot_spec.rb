@@ -13,20 +13,47 @@ describe Robot do
     
     it{ should_not change{ robot.direction } }
 
-    context 'when facing north'
-    context 'when facing south' 
-    context 'when facing east' 
-    context 'when facing west' 
+    context 'when facing north' do 
+      before do 
+        allow(robot).to receive(:direction).and_return(:north)
+      end      
+      it{ should change{ robot.y }.by(1) }
+      it{ should_not change{ robot.x } }
+    end
+
+    context 'when facing south' do 
+      before do 
+        allow(robot).to receive(:direction).and_return(:south)
+      end      
+      it{ should change{ robot.y }.by(-1) }
+      it{ should_not change{ robot.x } }
+    end
+
+    context 'when facing east' do 
+      before do 
+        allow(robot).to receive(:direction).and_return(:east)
+      end      
+      it{ should change{ robot.x}.by(1) }
+      it{ should_not change{ robot.y } }
+    end
+
+    context 'when facing west' do 
+      before do 
+        allow(robot).to receive(:direction).and_return(:west)
+      end      
+      it{ should change{ robot.x }.by(-1) }
+      it{ should_not change{ robot.y } }
+    end
     
   end
 
   describe '#place' do 
     let(:robot){ Robot.new }
-    subject{ lambda{ robot.place(1,1,:north) } }
+    subject{ lambda{ robot.place(1,1,:south) } }
     
-    it{ should change{ robot.x }.from(nil).to(1) }
-    it{ should change{ robot.y }.from(nil).to(1) }
-    it{ should change{ robot.direction }.from(nil).to(:north) }                                             
+    it{ should change{ robot.x }.from(0).to(1) }
+    it{ should change{ robot.y }.from(0).to(1) }
+    it{ should change{ robot.direction }.from(:north).to(:south) }                                             
   end
 
   describe '#left' do 
