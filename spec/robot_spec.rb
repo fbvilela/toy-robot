@@ -1,14 +1,35 @@
 describe Robot do 
   
-  def stub_direction_once( first_return_value )
+  def stub_direction_once(first_return_value)
     allow(subject).to receive(:direction){
       allow(subject).to receive(:direction).and_call_original
       first_return_value
     }
   end
 
-  describe '#left' do 
+  describe '#move' do
+    let(:robot){ Robot.new }
+    subject{ lambda{ robot.move } }
+    
+    it{ should_not change{ robot.direction } }
 
+    context 'when facing north'
+    context 'when facing south' 
+    context 'when facing east' 
+    context 'when facing west' 
+    
+  end
+
+  describe '#place' do 
+    let(:robot){ Robot.new }
+    subject{ lambda{ robot.place(1,1,:north) } }
+    
+    it{ should change{ robot.x }.from(nil).to(1) }
+    it{ should change{ robot.y }.from(nil).to(1) }
+    it{ should change{ robot.direction }.from(nil).to(:north) }                                             
+  end
+
+  describe '#left' do 
     context 'when facing NORTH' do 
       before do 
         stub_direction_once(:north)
@@ -44,7 +65,6 @@ describe Robot do
   end
 
   describe '#right' do 
-
     context 'when facing NORTH' do 
       before do 
         stub_direction_once(:north)
